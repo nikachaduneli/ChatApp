@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "569266957674",
+    "project_id": "chattingprogram-b0a21",
+    "storage_bucket": "chattingprogram-b0a21.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:569266957674:android:70fc5e7184d44c26630913",
+        "android_client_info": {
+          "package_name": "com.khvedelidze.chatapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "569266957674-isp9q2imv3db5473f33nh9rjmmjs6mtp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQVuPJRzNSObN-4oJPyuBpgq7DgK1M_Dw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "569266957674-isp9q2imv3db5473f33nh9rjmmjs6mtp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
