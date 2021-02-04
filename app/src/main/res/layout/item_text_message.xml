@@ -27,7 +27,7 @@
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
             tools:text="something someting somethingsomething someting somethingsomething someting somethingsomething someting somethingsomething someting something" />
         <TextView
-            android:id="@+id/textView_message_time"
+            android:id="@+id/send_message_person"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/sent_message_text"

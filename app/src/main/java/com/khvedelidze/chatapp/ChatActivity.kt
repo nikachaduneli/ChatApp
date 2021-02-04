@@ -1,5 +1,6 @@
 package com.khvedelidze.chatapp
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Gravity
 import android.widget.FrameLayout
@@ -25,12 +26,15 @@ class ChatActivity: AppCompatActivity() {
     private lateinit var mAuth: FirebaseAuth
     var databaseReference: DatabaseReference? = null
     val adapter = GroupieAdapter()
+    private lateinit var userNAME:String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chatactivity)
 
         mainActivityRecyclerView.adapter = adapter
+        mAuth = FirebaseAuth.getInstance()
+        logout()
 
         initFirebase()
 
@@ -38,7 +42,41 @@ class ChatActivity: AppCompatActivity() {
 
         createFirebaseListener()
 
-        mAuth = FirebaseAuth.getInstance()
+        getUsername()
+
+
+
+    }
+
+    private fun logout() {
+        LogOut_Button.setOnClickListener {
+            startActivity(Intent(this, MainActivity::class.java))
+            mAuth.signOut()
+            finish()
+        }
+    }
+
+    private fun getUsername() {
+        if(mAuth.currentUser?.uid != null){
+            val ref = FirebaseDatabase.getInstance().getReference("/users")
+
+            ref.child(mAuth.currentUser?.uid!!).addValueEventListener(object : ValueEventListener{
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val username = snapshot.getValue(Username::class.java)
+
+                    if (username != null){
+                        userNAME = username.username
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+
+                }
+
+            })
+
+
+        }
     }
 
     private fun createFirebaseListener() {
@@ -52,11 +90,11 @@ class ChatActivity: AppCompatActivity() {
 
                 if(message?.id == mAuth.currentUser?.uid!! ){
                     if (message != null) {
-                        adapter.add(SentMessages(message.text))
+                        adapter.add(SentMessages(message.text, "Me"))
                     }
                 }else{
                     if (message != null) {
-                        adapter.add(RecivedMessages(message.text))
+                        adapter.add(RecivedMessages(message.text, message.person))
                     }
                 }
 
@@ -137,7 +175,7 @@ class ChatActivity: AppCompatActivity() {
         val dataBase = FirebaseDatabase.getInstance().getReference("/messages").push()
         val text = mainActivityEditText.text
 
-        val message = Message(text.toString(), mAuth.currentUser?.uid!!)
+        val message = Message(text.toString(), mAuth.currentUser?.uid!!, userNAME)
 
 
             dataBase.setValue(message)
