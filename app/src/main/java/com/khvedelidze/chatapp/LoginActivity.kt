@@ -7,17 +7,20 @@ import android.util.Log
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_login.*
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 
 class LoginActivity: AppCompatActivity() {
 
     private lateinit var mAuth: FirebaseAuth
 
+    private lateinit var userName:String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setContentView(R.layout.activity_login)
 
         mAuth = FirebaseAuth.getInstance()
+
+        userName = intent.getStringExtra("USERNAME").toString()
 
         login_button_login.setOnClickListener {
             val email = email_edittext_login.text.toString()
@@ -29,6 +32,12 @@ class LoginActivity: AppCompatActivity() {
                 mAuth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
+
+                            val uid = FirebaseAuth.getInstance().uid
+                            val ref = FirebaseDatabase.getInstance().getReference("/users/$uid")
+                            val userUsername = Username(userName.toString())
+                            ref.setValue(userUsername)
+
                             startActivity(Intent(this, ChatActivity::class.java))
                             finish()
                         } else {
@@ -39,6 +48,7 @@ class LoginActivity: AppCompatActivity() {
         }
 
         back_to_register_textview.setOnClickListener{
+            startActivity(Intent(this, RegisterActivity::class.java))
             finish()
         }
     }

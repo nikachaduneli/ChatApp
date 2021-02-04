@@ -33,6 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/recived_message_text"
             android:textSize="12sp"
-            tools:text="3/15/2018 3:00 PM" />
+            tools:text="3/15/2018 3:00 PM"
+            android:layout_marginLeft="10dp" />
     </RelativeLayout>
 </FrameLayout>

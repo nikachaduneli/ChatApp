@@ -2,24 +2,13 @@ package com.khvedelidze.chatapp
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.Gravity
-import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
-import com.google.firebase.firestore.auth.User
 import kotlinx.android.synthetic.main.activity_chatactivity.*
-import kotlinx.android.synthetic.main.activity_main.*
-import java.util.*
-import org.jetbrains.anko.backgroundResource
-import org.jetbrains.anko.wrapContent
-import com.khvedelidze.chatapp.Message
 import com.xwray.groupie.GroupieAdapter
-import com.xwray.groupie.GroupAdapter as GroupAdapter
 
 class ChatActivity: AppCompatActivity() {
 
@@ -36,7 +25,7 @@ class ChatActivity: AppCompatActivity() {
         mAuth = FirebaseAuth.getInstance()
         logout()
 
-        initFirebase()
+        //initFirebase()
 
         setupSendButton()
 
@@ -50,7 +39,7 @@ class ChatActivity: AppCompatActivity() {
 
     private fun logout() {
         LogOut_Button.setOnClickListener {
-            startActivity(Intent(this, MainActivity::class.java))
+            startActivity(Intent(this, LoginActivity::class.java))
             mAuth.signOut()
             finish()
         }
@@ -122,7 +111,7 @@ class ChatActivity: AppCompatActivity() {
     /**
      * Setup firebase
      */
-    private fun initFirebase() {
+   /* private fun initFirebase() {
         //init firebase
         FirebaseApp.initializeApp(applicationContext)
 
@@ -131,7 +120,7 @@ class ChatActivity: AppCompatActivity() {
         //get reference to our db
         databaseReference = FirebaseDatabase.getInstance().reference
     }
-
+*/
     /**
      * Set listener for Firebase
      */
